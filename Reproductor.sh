@@ -28,3 +28,40 @@ if [ ${#canciones[@]} -eq 0 ]; then
 fi
 
 indice=0
+
+mostrar_menu() {
+    echo "🎵 Reproductor de Música"
+    nombre_cancion=$(basename "${canciones[$indice]}")
+    echo "Canción actual: $nombre_cancion"
+    echo "[n] Siguiente"
+    echo "[p] Anterior"
+    echo "[q] Salir"
+}
+
+while true; do
+    clear
+    mostrar_menu
+    mpg123 -q "${canciones[$indice]}" &
+    pid=$!
+    read -n 1 -s opcion
+    kill $pid &>/dev/null
+
+    case "$opcion" in
+        n)
+            ((indice++))
+            if ((indice >= ${#canciones[@]})); then
+                indice=0
+            fi
+            ;;
+        p)
+            ((indice--))
+            if ((indice < 0)); then
+                indice=$((${#canciones[@]} - 1))
+            fi
+            ;;
+        q)
+            echo "Saliendo..."
+            break
+            ;;
+    esac
+done
