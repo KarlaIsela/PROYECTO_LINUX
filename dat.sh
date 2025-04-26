@@ -26,7 +26,7 @@ escribir_lento() {
     echo ""
 }
 
-# ASCII INFOSIS estilo terminal
+# ASCII DAT estilo terminal
 ascii_art=(
 
 
