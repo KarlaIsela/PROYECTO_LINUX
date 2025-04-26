@@ -1,6 +1,9 @@
 #!/bin/bash
 
+# Función para mostrar los créditos del proyecto.
 mostrar_creditos() {
+
+# Define el ascii.art
 cat << "EOF"
 
                        __

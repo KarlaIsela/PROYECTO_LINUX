@@ -16,7 +16,6 @@ fi
 ruta_musica="$HOME/Música"
 
 # Comprobar si hay canciones
-# Comprobar si hay canciones
 canciones=()
 while IFS= read -r -d $'\0' cancion; do
     canciones+=("$cancion")
@@ -29,6 +28,8 @@ fi
 
 indice=0
 
+# Función para mostrar el menú
+# y la canción actual
 mostrar_menu() {
     echo "🎵 Reproductor de Música"
     nombre_cancion=$(basename "${canciones[$indice]}")
@@ -37,6 +38,7 @@ mostrar_menu() {
     echo "[p] Anterior"
     echo "[q] Salir"
 }
+
 
 while true; do
     clear
@@ -61,7 +63,7 @@ while true; do
             ;;
         q)
             echo "Saliendo..."
-            break
+            exit 1
             ;;
     esac
 done
