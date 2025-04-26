@@ -16,6 +16,9 @@ magenta=$(tput setaf 207)
 cyan=$(tput setaf 14)
 gris=$(tput setaf 247)
 
+# Archivo de credenciales
+ARCHIVO_CREDENCIALES="credenciales.txt"
+
 # Función para escribir lento
 escribir_lento() {
     local texto="$1"
@@ -61,8 +64,14 @@ read -p "Usuario: " user
 read -s -p "Contraseña: " pass
 echo
 
-# Verificar usuario
-if ! id "$user" &>/dev/null || ! echo "$pass" | su -c "exit" "$user" &>/dev/null; then
+# Verificar usuario del sistema
+#if ! id "$user" &>/dev/null || ! echo "$pass" | su -c "exit" "$user" &>/dev/null; then
+#    escribir_lento "${rojo}Acceso denegado.${reset}"
+#    exit 1
+#fi
+
+# Verificar usuario apartir del archivo de credenciales
+if ! grep -q "^$user:$pass$" "$ARCHIVO_CREDENCIALES"; then
     escribir_lento "${rojo}Acceso denegado.${reset}"
     exit 1
 fi
@@ -85,7 +94,7 @@ while true; do
         exit 0
     fi
 
-    # Si es uno de tus comandos
+    # Si es uno de los comandos
     if [ -f "./${cmd}.sh" ]; then
         bash "./${cmd}.sh"
     else
