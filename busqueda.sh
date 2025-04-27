@@ -1,8 +1,6 @@
 #!/bin/bash
 
-buscar_archivo() {
-    carpeta=$1
-    archivo=$2
+buscar_archivo() { 
 
     if [ ! -d "$carpeta" ]; then
         echo "Directorio no encontrado"
@@ -18,4 +16,10 @@ buscar_archivo() {
     fi
 }
 
-buscar_archivo "$1" "$2"
+echo "Ingresa la ruta de la carpeta donde quieres buscar:"
+read carpeta
+
+echo "Ingresa el nombre del archivo que quieres buscar:"
+read archivo
+
+buscar_archivo 
